@@ -3,5 +3,5 @@
 [ -z "${PP_ENVS_DIR}" ] && PP_ENVS_DIR=${HOME}/.pyvenv
 
 list() {
-	ls -d "${PP_ENVS_DIR}/*/"
+	( cd ${PP_ENVS_DIR} ; ls -d */ | cut -f1 -d'/' )
 }

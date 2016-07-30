@@ -1,1 +1,46 @@
-pp-new
+#!/usr/bin/env bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+source "$DIR/pp-common"
+
+help() {
+	echo 'pp-new: Wrapper around pyvenv'
+	echo '    pp-new <env_name>'
+	echo 'All switches are passed to pyvenv'
+	echo '---------------------------------'
+	pyvenv -h
+	exit 0
+}
+
+fatal() {
+	echo "ERROR: $@" >&2
+	exit 1
+}
+
+args=()
+env_name=
+for arg in "$@"; do
+	if [[ "${arg:0:1}" != '-' ]]; then
+		if [[ ! -z $env_name ]]; then
+			fatal "You can only supply one env name"
+		fi
+		env_name="$arg"
+	elif [[ "$arg" = '-h' || "$arg" = '--help' ]]; then
+		help
+	else
+		args+=($arg)
+	fi
+done
+
+if [[ -z "$env_name" ]]; then
+	env_name=${PWD##*/}
+	echo "Auto-detected env name: $env_name"
+fi
+
+env_path="${PP_ENVS_DIR}/${env_name}"
+if [[ -d "$env_path" ]]; then
+	fatal "Virtual env \"$env_name\" already exists"
+fi
+
+pyvenv ${args[@]} "$env_path"
