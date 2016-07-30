@@ -10,7 +10,7 @@
 ```sh
 cd ~/project/proj1
 
-pp-new Project1                # Create a new virtualenv with the name "Project1"
+pp-mk Project1                # Create a new virtualenv with the name "Project1"
                                # Equivalent to: pyvenv ~/.pyvenv/Project1
 
 source pp-activate             # Project1 is activated
@@ -25,7 +25,7 @@ deactivate                     # Same as with pyvenv
 
 ## Commands
 
-### `pp-new [EnvName]`
+### `pp-mk [EnvName]`
 Create a new environment with the given name. All argument switches are passed along to `pyvenv`.
 If no name is provided, we will use the name of the current directory.
 
