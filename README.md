@@ -18,7 +18,7 @@ pp-mk Project1 3.5.2           # Create a new virtualenv with the name "Project1
 source pp-activate             # Project1 is activated
                                # Equivalent to: source ~/.pyvenv/Project1/bin/activate
                                # Note that the project name is automatically
-                               # detected using a hidden file in current directory
+                               # detected using a hidden file in the current directory
 
 #... work on Project1
 
@@ -31,10 +31,10 @@ deactivate                     # Same as with pyvenv
 Create a new environment with the given name. All argument switches are passed along to `pyvenv`.
 If no name is provided, we will use the name of the current directory.
 
-If provided `env_name` differs from current directory, it is stored in a hidden local file `.papy`.
+If the provided `env_name` differs from current directory, it is stored in a hidden local file `.papy`.
 
 If you use [pyenv](https://github.com/yyuu/pyenv), you can also specify the python version to use.
-PaPy will also work with the usual shim.
+Equivalent to activating a pyenv shim and then running pyvenv on top of that.
 
 ### `pp-activate [env_name]`
 Activate an environment with the given name. If name is not provided, the environment is detected
