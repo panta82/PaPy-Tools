@@ -33,9 +33,21 @@ for arg in "$@"; do
 	fi
 done
 
+natural_env_name=${PWD##*/}
+
 if [[ -z "$env_name" ]]; then
 	env_name=${PWD##*/}
 	echo "Auto-detected env name: $env_name"
+fi
+
+if [[ "$env_name" != "$natural_env_name" ]]; then
+	echo "$env_name" > ${PP_NAME_FILE}
+	echo "Virtual env name saved into ${PP_NAME_FILE}"
+
+	if [[ -f .gitignore ]]; then
+		echo "/${PP_NAME_FILE}" >> .gitignore
+		echo "\"${PP_NAME_FILE}\" added to .gitignore"
+	fi
 fi
 
 env_path="${PP_ENVS_DIR}/${env_name}"

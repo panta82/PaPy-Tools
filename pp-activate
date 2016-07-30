@@ -12,7 +12,7 @@ source "$DIR/pp-common"
 if [ ! -z "$1" ]; then
 	env_name="$1"
 elif [ -f '.pp' ]; then
-	env_name=$(cat .pp)
+	env_name=$(cat ${PP_NAME_FILE})
 else
 	env_name=${PWD##*/}
 fi

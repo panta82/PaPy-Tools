@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-[ -z "${PP_ENVS_DIR}" ] && PP_ENVS_DIR=${HOME}/.pyvenv
+[ -z "${PP_ENVS_DIR}" ] && PP_ENVS_DIR="${HOME}/.pyvenv"
+[ -z "${PP_NAME_FILE}" ] && PP_NAME_FILE=".pp"
 
 list() {
 	( cd ${PP_ENVS_DIR} ; ls -d */ | cut -f1 -d'/' )
