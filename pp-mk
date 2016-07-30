@@ -5,11 +5,12 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$DIR/pp-common"
 
 help() {
-	echo 'pp-new: Wrapper around pyvenv'
-	echo '    pp-new <env_name>'
-	echo 'All switches are passed to pyvenv'
-	echo '---------------------------------'
-	pyvenv -h
+	echo 'pp-mk: Wrapper around pyvenv and pyenv'
+	echo ''
+	echo '    pp-mk <env_name> [python_version]'
+	echo ''
+	echo 'All switches are passed to pyvenv. Type pyvenv -h for details.'
+	echo 'env_version is a pyenv version to base the new environment on, if available. Type pyenv for more details.'
 	exit 0
 }
 
@@ -20,12 +21,16 @@ fatal() {
 
 args=()
 env_name=
+python_version=
 for arg in "$@"; do
 	if [[ "${arg:0:1}" != '-' ]]; then
-		if [[ ! -z $env_name ]]; then
-			fatal "You can only supply one env name"
+		if [[ -z $env_name ]]; then
+			env_name="$arg"
+		elif [[ -z $python_version ]]; then
+			python_version="$arg"
+		else
+			fatal "Too many arguments. You can only supply one env name."	
 		fi
-		env_name="$arg"
 	elif [[ "$arg" = '-h' || "$arg" = '--help' ]]; then
 		help
 	else
@@ -33,11 +38,24 @@ for arg in "$@"; do
 	fi
 done
 
+if [[ ! -z ${python_version} ]]; then
+	python_path=$(PYENV_VERSION=${python_version} pyenv which python)
+	if [[ "$?" != 0 ]]; then
+		exit 1
+	fi
+	export PATH="$(dirname $python_path):$PATH"
+fi
+
 natural_env_name=${PWD##*/}
 
 if [[ -z "$env_name" ]]; then
 	env_name=${PWD##*/}
 	echo "Auto-detected env name: $env_name"
+fi
+
+env_path="${PP_ENVS_DIR}/${env_name}"
+if [[ -d "$env_path" ]]; then
+	fatal "Virtual env \"$env_name\" already exists"
 fi
 
 if [[ "$env_name" != "$natural_env_name" ]]; then
@@ -50,9 +68,5 @@ if [[ "$env_name" != "$natural_env_name" ]]; then
 	fi
 fi
 
-env_path="${PP_ENVS_DIR}/${env_name}"
-if [[ -d "$env_path" ]]; then
-	fatal "Virtual env \"$env_name\" already exists"
-fi
-
-pyvenv ${args[@]} "$env_path"
+echo "Based on $(python -V)"
+$env_cmd pyvenv ${args[@]} "$env_path"

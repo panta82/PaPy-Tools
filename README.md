@@ -10,8 +10,10 @@
 ```sh
 cd ~/project/proj1
 
-pp-mk Project1                # Create a new virtualenv with the name "Project1"
+pp-mk Project1 3.5.2           # Create a new virtualenv with the name "Project1"
                                # Equivalent to: pyvenv ~/.pyvenv/Project1
+                               # In this case, we will base the new venv on Python 3.5.2
+                               # (previously installed through pyenv)
 
 source pp-activate             # Project1 is activated
                                # Equivalent to: source ~/.pyvenv/Project1/bin/activate
@@ -25,13 +27,16 @@ deactivate                     # Same as with pyvenv
 
 ## Commands
 
-### `pp-mk [EnvName]`
+### `pp-mk [env_name] [python_version]`
 Create a new environment with the given name. All argument switches are passed along to `pyvenv`.
 If no name is provided, we will use the name of the current directory.
 
-If provided `EnvName` differs from current directory, it is stored in a hidden local file `.pp`.
+If provided `env_name` differs from current directory, it is stored in a hidden local file `.papy`.
 
-### `pp-activate [EnvName]`
+If you use [pyenv](https://github.com/yyuu/pyenv), you can also specify the python version to use.
+PaPy will also work with the usual shim.
+
+### `pp-activate [env_name]`
 Activate an environment with the given name. If name is not provided, the environment is detected
 based on the current directory.
 
