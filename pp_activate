@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+source "$DIR/pp-settings"
+
+if [ -f '.pp' ]; then
+	env_name=$(cat .pp)
+else
+	env_name=${PWD##*/}
+fi
+
+if [ ! -d "${PP_ENVS_DIR}/$env_name" ]; then
+	echo 'echo "Virtual env not found: $env_name"'
+	exit 1
+fi
+
+source "${PP_ENVS_DIR}/$env_name/bin/activate"

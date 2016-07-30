@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+[ -n "${PP_ENVS_DIR}" ] && PP_ENVS_DIR=${HOME}/.pyvenv
+
+list() {
+	ls -d "${PP_ENVS_DIR}/*/"
+}
