@@ -1,6 +1,6 @@
 # PaPy Tools
 
-#### Tiny bash utilities to better manage [pyvenv](https://docs.python.org/3/library/venv.html)
+#### Tiny bash utilities to better manage [pyvenv](https://docs.python.org/3/library/venv.html) and [pyenv](https://github.com/yyuu/pyenv)
 
 ##### (In other words, NIH version of [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/))
 
