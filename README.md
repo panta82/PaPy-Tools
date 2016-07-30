@@ -1,4 +1,4 @@
-# PP Tools
+# PaPy Tools
 
 #### Tiny bash utilities to better manage [pyvenv](https://docs.python.org/3/library/venv.html)
 
