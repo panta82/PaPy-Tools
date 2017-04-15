@@ -22,4 +22,14 @@ if [ ! -d "${PP_ENVS_DIR}/$env_name" ]; then
 	return 1
 fi
 
-source "${PP_ENVS_DIR}/$env_name/bin/activate"
+BIN_DIR="${PP_ENVS_DIR}/$env_name/bin/"
+if [ ! -d "$BIN_DIR" ]; then
+	BIN_DIR="${PP_ENVS_DIR}/$env_name/Scripts/"
+fi
+
+if [ ! -d "$BIN_DIR" ]; then
+	echo "Couldn't find the activate script inside '${PP_ENVS_DIR}/$env_name/'" >&2
+	exit 1
+fi	
+
+source "${BIN_DIR}/activate"
