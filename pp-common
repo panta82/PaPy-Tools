@@ -4,7 +4,7 @@
 [ -z "${PP_NAME_FILE}" ] && PP_NAME_FILE=".papy"
 
 list() {
-	if [[ ! -f ${PP_ENVS_DIR} ]]; then
+	if [[ ! -d ${PP_ENVS_DIR} ]]; then
 		return
 	fi
 	( cd ${PP_ENVS_DIR} ; ls -d */ | cut -f1 -d'/' )
