@@ -10,7 +10,7 @@ help() {
 	echo '    pp-mk <env_name> [python_version]'
 	echo ''
 	echo 'All switches are passed to pyvenv. Type pyvenv -h for details.'
-	echo 'env_version is a pyenv version to base the new environment on, if available. Type pyenv for more details.'
+	echo '"python_version" is a pyenv version to base the new environment on, if available. Type pyenv for more details.'
 	exit 0
 }
 
